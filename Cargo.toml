@@ -1,0 +1,96 @@
+[package]
+name = "print-manager"
+version = "0.3.4"
+edition = "2024"
+publish = false
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[[bin]]
+name = "print-manager"
+path = "src/main.rs"
+required-features = ["ssr"]
+
+[features]
+default = ["ssr"]
+hydrate = ["leptos/hydrate"]
+ssr = [
+  "dep:base64",
+  "dep:axum",
+  "dep:chrono",
+  "dep:chrono-tz",
+  "dep:image",
+  "dep:leptos_axum",
+  "dep:printpdf",
+  "dep:reqwest",
+  "dep:sha2",
+  "dep:serde_json",
+  "dep:sqlx",
+  "dep:tokio",
+  "dep:tokio-util",
+  "dep:tracing",
+  "dep:tracing-subscriber",
+  "dep:uuid",
+  "dep:url",
+  "leptos/ssr",
+  "leptos_meta/ssr",
+  "leptos_router/ssr",
+]
+
+[dependencies]
+axum = { version = "=0.8.4", features = ["multipart"], optional = true }
+base64 = { version = "=0.22.1", optional = true }
+chrono = { version = "=0.4.41", features = ["clock"], optional = true }
+chrono-tz = { version = "=0.10.4", optional = true }
+leptos = { version = "=0.8.20" }
+leptos_axum = { version = "=0.8.8", optional = true }
+leptos_meta = { version = "=0.8.6" }
+leptos_router = { version = "=0.8.12" }
+image = { version = "=0.25.10", default-features = false, features = ["jpeg", "png"], optional = true }
+printpdf = { version = "=0.8.2", default-features = false, features = ["jpeg", "png"], optional = true }
+reqwest = { version = "=0.12.22", default-features = false, features = ["json", "rustls-tls"], optional = true }
+sha2 = { version = "=0.10.9", optional = true }
+rust_decimal = { version = "=1.37.2", features = ["serde-str"] }
+serde = { version = "=1.0.219", features = ["derive"] }
+serde_json = { version = "=1.0.142", optional = true }
+sqlx = { version = "=0.8.6", default-features = false, features = ["macros", "migrate", "runtime-tokio", "sqlite"], optional = true }
+thiserror = { version = "=2.0.17" }
+tokio = { version = "=1.49.0", features = ["fs", "io-util", "macros", "net", "rt-multi-thread", "signal", "time"], optional = true }
+tokio-util = { version = "=0.7.17", features = ["io"], optional = true }
+tracing = { version = "=0.1.41", optional = true }
+tracing-subscriber = { version = "=0.3.19", features = ["env-filter", "fmt"], optional = true }
+uuid = { version = "=1.20.0", features = ["v4"], optional = true }
+url = { version = "=2.5.4", optional = true }
+wasm-bindgen = { version = "=0.2.108" }
+web-sys = { version = "=0.3.85", features = ["DataTransfer", "DomRect", "DragEvent", "Element", "Event", "EventTarget", "HtmlElement", "Node", "Window"] }
+
+[dev-dependencies]
+lopdf = "=0.34.0"
+tempfile = "=3.20.0"
+tower = { version = "=0.5.3", features = ["util"] }
+
+[package.metadata.leptos]
+output-name = "print-manager"
+site-root = "target/site"
+site-pkg-dir = "pkg"
+style-file = "style/main.css"
+assets-dir = "public"
+site-addr = "127.0.0.1:3000"
+reload-port = 3001
+end2end-cmd = ""
+end2end-dir = "end2end"
+browserquery = "defaults"
+env = "DEV"
+bin-features = ["ssr"]
+bin-default-features = false
+lib-features = ["hydrate"]
+lib-default-features = false
+
+[lints.rust]
+unsafe_code = "forbid"
+
+[lints.clippy]
+pedantic = { level = "warn", priority = -1 }
+unwrap_used = "deny"
+expect_used = "deny"

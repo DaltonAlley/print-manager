@@ -1,0 +1,3 @@
+ALTER TABLE jobs ADD COLUMN description TEXT NOT NULL DEFAULT '';
+ALTER TABLE jobs ADD COLUMN price_cents INTEGER NOT NULL DEFAULT 0
+    CHECK (price_cents >= 0);

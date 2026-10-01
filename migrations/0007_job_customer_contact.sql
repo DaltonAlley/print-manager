@@ -1,0 +1,2 @@
+ALTER TABLE jobs ADD COLUMN customer_phone TEXT NOT NULL DEFAULT '';
+ALTER TABLE jobs ADD COLUMN customer_email TEXT NOT NULL DEFAULT '';
